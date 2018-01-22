@@ -10,7 +10,8 @@
 import Foundation
 import UIKit
 
-class MasterViewController: UITableViewController, MasterView, UISplitViewControllerDelegate  {
+class MasterViewController: UITableViewController, MasterView, ViewWithAlert,
+UISplitViewControllerDelegate  {
     var configurator = MasterConfiguratorImplementation()
     var presenter: MasterPresenter!
 
@@ -18,6 +19,7 @@ class MasterViewController: UITableViewController, MasterView, UISplitViewContro
         super.viewDidLoad()
         configurator.configure(masterViewController: self)
         splitViewController?.delegate = self
+        splitViewController?.presentsWithGesture = false
 
         presenter.viewDidLoad()
     }
@@ -25,42 +27,25 @@ class MasterViewController: UITableViewController, MasterView, UISplitViewContro
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let orientationAfterTransition = UIDevice.current.orientation
-        let isLandscape = orientationAfterTransition.isLandscape
-
-        if(presenter.selectedIndexPath != nil && isLandscape) {
-            self.tableView.selectRow(at: presenter.selectedIndexPath,
-                                     animated: true,
-                                     scrollPosition:UITableViewScrollPosition.middle)
-
-            presenter.orientationJustChanged = false
+        if(checkIfDeviceIsLandscape()) {
+            presenter.selectCurrentlyViewedDetailOnList()
         }
     }
 
-    func displayErrorMessage(details: String) {
-        let alert = UIAlertController(title: "Error",
-                                      message: details,
-                                      preferredStyle: .alert)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
+        if(checkIfDeviceIsLandscape()) {
+            presenter.checkIfInitialItemNeedsToBeSet()
+        }
     }
 
     func reloadCollection() {
-        //TODO
         self.tableView.reloadData()
 
-        let initialOrientation = UIApplication.shared.statusBarOrientation
-        if (initialOrientation.isLandscape) {
-
-            let initialIndexPath = IndexPath(row: 0, section: 0)
-            self.tableView.selectRow(at: initialIndexPath, animated: true,
-                                     scrollPosition:UITableViewScrollPosition.none)
-
-            self.performSegue(withIdentifier: MasterConsts.detailSegue, sender: initialIndexPath)
+        if(checkIfInitialOrientationIsLandscape()) {
+            presenter.checkIfInitialItemNeedsToBeSet()
         }
-
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,6 +75,34 @@ class MasterViewController: UITableViewController, MasterView, UISplitViewContro
             presenter.prepareDestinationController(controller: controller,
                                                    selectedIndex: selectedIndex!)
         }
+    }
+
+    func checkIfDeviceIsLandscape() -> Bool {
+        let orientationAfterTransition = UIDevice.current.orientation
+        return orientationAfterTransition.isLandscape
+    }
+
+    func checkIfInitialOrientationIsLandscape() -> Bool {
+        let initialOrientation = UIApplication.shared.statusBarOrientation
+        return initialOrientation.isLandscape
+    }
+
+    func selectMasterRow(_ indexPath: IndexPath) {
+        self.tableView.selectRow(at: indexPath,
+                                 animated: true,
+                                 scrollPosition: .middle)
+        self.performSegue(withIdentifier: MasterConsts.detailSegue, sender: indexPath)
+
+    }
+
+    func displayErrorMessage(details: String) {
+        AlertModule().displayErrorMessage(details: details,
+                                          viewInterface: self,
+                                          parentView: self)
+    }
+
+    func retryAction() {
+        presenter.retryFetch()
     }
 }
 

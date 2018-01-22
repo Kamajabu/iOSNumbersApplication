@@ -17,5 +17,6 @@ protocol DetailsPresenter: class {
           masterLowResImageUrl: String?)
 
     func viewDidLoad()
-          
+
+    func retryFetch()
 }

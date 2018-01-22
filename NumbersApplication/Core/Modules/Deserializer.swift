@@ -14,18 +14,13 @@ protocol DeserializerProtocol {
 }
 
 class Deserializer: DeserializerProtocol {
-
     func decodeData<T: Decodable>(data: Data, dataType: T.Type,
                                   Completion decoded: @escaping ((T) -> ())) {
         do {
             let decodedData = try JSONDecoder().decode(dataType, from: data)
             decoded(decodedData)
-
         } catch let jsonError {
             print(jsonError)
         }
     }
-    
-    
-
 }

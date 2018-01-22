@@ -24,7 +24,6 @@ class DetailsConfiguratorImplementation: DetailsConfigurator {
     init(masterIndex: String?, masterLowResImageUrl: String?) {
         self.masterIndex = masterIndex
         self.masterLowResImageUrl = masterLowResImageUrl
-
     }
 
     func configure(detailsViewController: DetailsViewController) {

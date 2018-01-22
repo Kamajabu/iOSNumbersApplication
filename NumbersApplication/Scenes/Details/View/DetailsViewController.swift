@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import SDWebImage
 
-class DetailsViewController: UIViewController, DetailsView {
+class DetailsViewController: UIViewController, DetailsView, ViewWithAlert {
     @IBOutlet weak var detailImage: UIImageView!
     @IBOutlet weak var detailLabel: UILabel!
 
@@ -43,7 +43,13 @@ class DetailsViewController: UIViewController, DetailsView {
     }
 
     func displayErrorMessage(details: String) {
-        //TODO
+        AlertModule().displayErrorMessage(details: details,
+                                          viewInterface: self,
+                                          parentView: self)
+    }
+
+    func retryAction() {
+        presenter.retryFetch()
     }
 
     func populateData(data: DetailData) {
@@ -53,5 +59,4 @@ class DetailsViewController: UIViewController, DetailsView {
             detailImage.sd_setImage(with: url)
         }
     }
-
 }

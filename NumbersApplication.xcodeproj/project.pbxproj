@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3173892015B9AA00CA3416 /* AlertModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3173882015B9AA00CA3416 /* AlertModule.swift */; };
 		2C7D59DB20152BEB00BDEFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D59DA20152BEB00BDEFDD /* AppDelegate.swift */; };
-		2C7D59DD20152BEB00BDEFDD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D59DC20152BEB00BDEFDD /* ViewController.swift */; };
 		2C7D59E020152BEB00BDEFDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D59DE20152BEB00BDEFDD /* Main.storyboard */; };
 		2C7D59E320152BEB00BDEFDD /* NumbersApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D59E120152BEB00BDEFDD /* NumbersApplication.xcdatamodeld */; };
 		2C7D59E520152BEB00BDEFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D59E420152BEB00BDEFDD /* Assets.xcassets */; };
@@ -55,9 +55,9 @@
 
 /* Begin PBXFileReference section */
 		158C07A9EDE99DFA455B5401 /* Pods-NumbersApplicationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NumbersApplicationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NumbersApplicationTests/Pods-NumbersApplicationTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C3173882015B9AA00CA3416 /* AlertModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModule.swift; sourceTree = "<group>"; };
 		2C7D59D720152BEB00BDEFDD /* NumbersApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumbersApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7D59DA20152BEB00BDEFDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C7D59DC20152BEB00BDEFDD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C7D59DF20152BEB00BDEFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C7D59E220152BEB00BDEFDD /* NumbersApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NumbersApplication.xcdatamodel; sourceTree = "<group>"; };
 		2C7D59E420152BEB00BDEFDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -136,6 +136,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2C3173872015B05000CA3416 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C7D59DE20152BEB00BDEFDD /* Main.storyboard */,
+				2C7D59E620152BEB00BDEFDD /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2C7D59CE20152BEB00BDEFDD = {
 			isa = PBXGroup;
 			children = (
@@ -161,13 +170,11 @@
 		2C7D59D920152BEB00BDEFDD /* NumbersApplication */ = {
 			isa = PBXGroup;
 			children = (
+				2C3173872015B05000CA3416 /* Views */,
 				2CD76C802015395200FB4E1F /* Core */,
 				2C7D5A132015347B00BDEFDD /* Scenes */,
 				2C7D5A0B2015334E00BDEFDD /* SupplementaryViews */,
 				2C7D59DA20152BEB00BDEFDD /* AppDelegate.swift */,
-				2C7D59DC20152BEB00BDEFDD /* ViewController.swift */,
-				2C7D59DE20152BEB00BDEFDD /* Main.storyboard */,
-				2C7D59E620152BEB00BDEFDD /* LaunchScreen.storyboard */,
 				2C7D59E420152BEB00BDEFDD /* Assets.xcassets */,
 				2C7D59E920152BEB00BDEFDD /* Info.plist */,
 				2C7D59E120152BEB00BDEFDD /* NumbersApplication.xcdatamodeld */,
@@ -306,6 +313,7 @@
 			children = (
 				2CD76C8720153A5D00FB4E1F /* ApiGateway.swift */,
 				2CB9971A201544B90091500F /* Deserializer.swift */,
+				2C3173882015B9AA00CA3416 /* AlertModule.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -602,9 +610,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD76C58201535F200FB4E1F /* MasterPresenter.swift in Sources */,
+				2C3173892015B9AA00CA3416 /* AlertModule.swift in Sources */,
 				2CD76C83201539AB00FB4E1F /* MasterData.swift in Sources */,
 				2CD76C642015361E00FB4E1F /* DetailsConfigurator.swift in Sources */,
-				2C7D59DD20152BEB00BDEFDD /* ViewController.swift in Sources */,
 				2CB9971B201544B90091500F /* Deserializer.swift in Sources */,
 				2CD76C662015361E00FB4E1F /* DetailsPresenterImplementation.swift in Sources */,
 				2CD76C5A201535F200FB4E1F /* MasterView.swift in Sources */,

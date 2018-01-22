@@ -13,4 +13,3 @@ struct MasterData: Codable {
     let name: String
     let image: String
 }
-

@@ -10,19 +10,23 @@
 import Foundation
 
 protocol MasterPresenter: class {
+    var masterDataArray: [MasterData] { get set }
+
+    var selectedIndexPath: IndexPath? { get set }
+
     init (view: MasterView,
           apiGateway: ApiGateway,
           deserializer: Deserializer)
 
     func viewDidLoad()
 
-    var masterDataArray: [MasterData] { get set }
-
-    var selectedIndexPath: IndexPath? { get set }
-
-    var orientationJustChanged: Bool { get set }
-
     func configureCell(cell: MasterTableViewCell, row: Int)
 
     func prepareDestinationController(controller: DetailsViewController, selectedIndex: IndexPath)
+
+    func retryFetch()
+
+    func selectCurrentlyViewedDetailOnList()
+
+    func checkIfInitialItemNeedsToBeSet()
 }

@@ -16,7 +16,6 @@ class MasterPresenterImplementation: MasterPresenter {
 
     var masterDataArray: [MasterData] = []
     var selectedIndexPath: IndexPath?
-    var orientationJustChanged = false
 
     required init(view: MasterView,
                   apiGateway: ApiGateway,
@@ -30,6 +29,25 @@ class MasterPresenterImplementation: MasterPresenter {
         downloadData()
     }
 
+    func retryFetch() {
+        downloadData()
+    }
+
+    func selectCurrentlyViewedDetailOnList() {
+        if let selectedRow = selectedIndexPath {
+           view.selectMasterRow(selectedRow)
+        }
+    }
+
+    func checkIfInitialItemNeedsToBeSet() {
+        if(selectedIndexPath == nil && !masterDataArray.isEmpty) {
+            let initialIndexPath = IndexPath(row: 0, section: 0)
+            selectedIndexPath = initialIndexPath
+            view.selectMasterRow(initialIndexPath)
+
+        }
+    }
+
     internal func downloadData() {
         apiGateway.fetchResources(urlString: MasterConsts.masterEndpoint) { (data, error) in
             guard error == nil else {
@@ -39,19 +57,29 @@ class MasterPresenterImplementation: MasterPresenter {
             }
 
             if let recievedData = data {
-                self.deserializer.decodeData(data: recievedData,
-                                             dataType: [MasterData].self, Completion: { (data) in
-                                                self.masterDataArray = data
-                                                DispatchQueue.main.async {
-                                                    self.view.reloadCollection()
-                                                }
-                })
+                self.deserializeData(recievedData)
             }
         }
     }
 
+    internal func deserializeData(_ recievedData: Data) {
+        self.deserializer
+            .decodeData(data: recievedData, dataType: [MasterData].self,
+                        Completion: { (data) in
+                            self.assignDataAndUpdateView(data)
+
+            })
+    }
+
+    internal func assignDataAndUpdateView(_ data: [MasterData]) {
+        self.masterDataArray = data
+        DispatchQueue.main.async {
+            self.view.reloadCollection()
+        }
+    }
+
     func configureCell(cell: MasterTableViewCell, row: Int) {
-       let cellDetails = masterDataArray[row]
+        let cellDetails = masterDataArray[row]
         cell.setTitleLabel(title: cellDetails.name)
         cell.setCellImage(cellImage: cellDetails.image)
     }
@@ -63,13 +91,11 @@ class MasterPresenterImplementation: MasterPresenter {
 
     func prepareDestinationController(controller: DetailsViewController, selectedIndex: IndexPath) {
         selectedIndexPath = selectedIndex
-            let chosenIndex = masterDataArray[selectedIndex.row].name
-            let imageUrl = masterDataArray[selectedIndex.row].image
+        let chosenIndex = masterDataArray[selectedIndex.row].name
+        let imageUrl = masterDataArray[selectedIndex.row].image
 
-            controller.configurator = DetailsConfiguratorImplementation(
-                masterIndex: chosenIndex, masterLowResImageUrl: imageUrl)
-            
-            
+        controller.configurator = DetailsConfiguratorImplementation(
+            masterIndex: chosenIndex, masterLowResImageUrl: imageUrl)
 
     }
 }

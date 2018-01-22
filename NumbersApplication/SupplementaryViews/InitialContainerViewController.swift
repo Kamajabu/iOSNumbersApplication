@@ -18,7 +18,7 @@ class InitialContainerViewController: UIViewController {
     }
 
     func configureTrait(isLandscape: Bool) {
-        //        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
 
         if (isLandscape) {
             let traitOverride = UITraitCollection(horizontalSizeClass: .regular)
@@ -39,7 +39,6 @@ class InitialContainerViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize,
                                      with coordinator: UIViewControllerTransitionCoordinator) {
-
         let orientationAfterTransition = UIDevice.current.orientation
         configureTrait(isLandscape: orientationAfterTransition.isLandscape)
     }

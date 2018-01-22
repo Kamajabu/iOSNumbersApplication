@@ -30,10 +30,12 @@ class DetailsPresenterImplementation: DetailsPresenter {
 
     func viewDidLoad() {
         populateViewWithInitialData()
+        attemptToFetchData()
 
-        if let passedIndex = masterIndex {
-            downloadData(detailIndex: passedIndex)
-        }
+    }
+
+    func retryFetch() {
+        attemptToFetchData()
     }
 
     internal func populateViewWithInitialData() {
@@ -45,6 +47,12 @@ class DetailsPresenterImplementation: DetailsPresenter {
 
         if (masterLowResImageUrl != nil) {
             attemptURLConstruct()
+        }
+    }
+
+    internal func attemptToFetchData() {
+        if let passedIndex = masterIndex {
+            downloadData(detailIndex: passedIndex)
         }
     }
 
@@ -66,13 +74,21 @@ class DetailsPresenterImplementation: DetailsPresenter {
             }
 
             if let recievedData = data {
-                self.deserializer.decodeData(data: recievedData,
-                                             dataType: DetailData.self, Completion: { (data) in
-                                                self.view.populateData(data: data)
-                })
+                self.deserializeData(recievedData)
             }
         }
     }
+
+    internal func deserializeData(_ recievedData: Data) {
+        self.deserializer.decodeData(data: recievedData,
+                                     dataType: DetailData.self, Completion: { (data) in
+                                        self.updateView(data)
+        })
+    }
+
+    internal func updateView(_ data: DetailData) {
+        DispatchQueue.main.async {
+            self.view.populateData(data: data)
+        }
+    }
 }
-
-

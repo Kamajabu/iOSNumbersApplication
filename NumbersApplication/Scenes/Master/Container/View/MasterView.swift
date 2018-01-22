@@ -13,4 +13,6 @@ protocol MasterView: class {
     func displayErrorMessage(details: String)
 
     func reloadCollection()
+
+    func selectMasterRow(_ indexPath: IndexPath)
 }
