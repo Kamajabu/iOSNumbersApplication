@@ -26,13 +26,11 @@ class InitialContainerViewController: UIViewController {
             for vc in childViewControllers {
                 setOverrideTraitCollection(traitOverride, forChildViewController: vc)
             }
-
         } else {
             let traitOverride = UITraitCollection(horizontalSizeClass: .compact)
 
             for vc in childViewControllers {
                 setOverrideTraitCollection(traitOverride, forChildViewController: vc)
-
             }
         }
     }
