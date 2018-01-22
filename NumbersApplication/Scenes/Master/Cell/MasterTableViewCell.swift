@@ -16,26 +16,32 @@ class MasterTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         if (isSelected) {
-            self.backgroundColor = .red
+            setSelectedStyle()
         }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if(selected) {
-            self.backgroundColor = .red
+            setSelectedStyle()
         } else {
-            self.backgroundColor = UIColor.blue.withAlphaComponent(0)
+             setDefaultStyle()
         }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        self.backgroundColor = .blue
+        setTouchedStyle()
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.backgroundColor = UIColor.blue.withAlphaComponent(0)
+        super.touchesEnded(touches, with: event)
+         setDefaultStyle()
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        setDefaultStyle()
     }
 
     func setCellImage(cellImage: String) {
@@ -44,5 +50,20 @@ class MasterTableViewCell: UITableViewCell {
 
     func setTitleLabel(title: String) {
         self.titleLabel.text = title
+    }
+
+    func setSelectedStyle() {
+        self.backgroundColor = .red
+        self.titleLabel.textColor = .white
+    }
+
+    func setTouchedStyle() {
+        self.backgroundColor = .blue
+        self.titleLabel.textColor = .white
+    }
+
+    func setDefaultStyle() {
+        self.backgroundColor = UIColor.blue.withAlphaComponent(0)
+        self.titleLabel.textColor = .black
     }
 }
