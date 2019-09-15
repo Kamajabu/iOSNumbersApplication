@@ -48,7 +48,7 @@ class MasterPresenterImplementation: MasterPresenter {
         }
     }
 
-    internal func downloadData() {
+    func downloadData() {
         apiGateway.fetchResources(urlString: MasterConsts.masterEndpoint) { (data, error) in
             guard error == nil else {
                 let description = error?.localizedDescription
