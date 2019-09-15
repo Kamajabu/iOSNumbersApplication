@@ -65,8 +65,8 @@ class MasterPresenterImplementation: MasterPresenter {
     internal func deserializeData(_ recievedData: Data) {
         self.deserializer
             .decodeData(data: recievedData, dataType: [MasterData].self,
-                        Completion: { (data) in
-                            self.assignDataAndUpdateView(data)
+                        Completion: { [weak self] data in
+                            self?.assignDataAndUpdateView(data)
 
             })
     }

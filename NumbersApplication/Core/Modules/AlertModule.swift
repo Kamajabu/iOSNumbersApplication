@@ -24,6 +24,7 @@ class AlertModule {
         let retryAction = UIAlertAction(title: "Retry",style: .default) { _ in
             viewInterface.retryAction()
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
         alert.addAction(retryAction)
